@@ -1,409 +1,336 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Globe, 
-  Smartphone, 
-  ShoppingCart, 
-  Zap, 
-  Shield, 
-  Users,
-  ArrowRight,
-  Menu,
-  X,
-  CheckCircle,
+  ArrowRight, 
+  Check, 
+  Phone, 
+  Mail, 
   Star,
-  Mail,
-  Phone,
-  MapPin,
+  Shield,
+  Zap,
   Target,
   Play,
-  Check,
-  LayoutDashboard,
-  Home,
+  Sparkles,
+  TrendingUp,
+  Users,
+  Award,
+  Monitor,
+  Smartphone,
+  Globe,
+  Clock,
+  CheckCircle,
   Code,
   Palette,
-  Rocket
+  Rocket,
+  Headphones,
+  FileText,
+  Heart,
+  ShoppingCart
 } from 'lucide-react';
 import Modal from './components/Modal';
 import ContactForm from './components/ContactForm';
-import Dashboard from './components/Dashboard';
+import { Button } from './components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const scrollToForm = () => {
     const formSection = document.getElementById('contact');
     formSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (showDashboard) {
-    return (
-      <div className="relative">
-        <div className="fixed top-4 right-4 z-50">
-          <button
-            onClick={() => setShowDashboard(false)}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-2xl font-medium transition-all duration-300 inline-flex items-center gap-2 shadow-lg hover:shadow-xl"
-          >
-            <Home size={16} />
-            Retour au site
-          </button>
-        </div>
-        <Dashboard />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-100 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
-                <Globe className="w-6 h-6 text-white" />
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 z-40 shadow-lg">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between py-6">
+            <div className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center">
+                <Code className="text-white" size={20} />
               </div>
-              <span className="text-2xl font-bold text-gray-900">WebAgency</span>
+              WebCraft Pro
             </div>
-
-            {/* Desktop Menu */}
+            
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#services" className="text-gray-700 hover:text-green-500 transition-colors font-medium">
-                Services
-              </a>
-              <a href="#why-us" className="text-gray-700 hover:text-green-500 transition-colors font-medium">
-                Pourquoi nous ?
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-green-500 transition-colors font-medium">
-                Contact
-              </a>
-              <button 
-                onClick={() => setShowDashboard(true)}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-2xl font-medium transition-all duration-300 inline-flex items-center gap-2"
-              >
-                <LayoutDashboard size={16} />
-                Dashboard
-              </button>
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-2xl font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                Devis gratuit
-              </button>
+              <a href="#services" className="text-gray-600 hover:text-green-500 transition-colors duration-300 font-medium">Services</a>
+              <a href="#why-us" className="text-gray-600 hover:text-green-500 transition-colors duration-300 font-medium">Pourquoi nous ?</a>
+              <a href="#contact" className="text-gray-600 hover:text-green-500 transition-colors duration-300 font-medium">Contact</a>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-2xl hover:bg-gray-100 transition-colors"
+            
+            <Button 
+              onClick={() => setIsModalOpen(true)}
+              className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              Devis gratuit
+            </Button>
           </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-gray-100">
-              <div className="flex flex-col space-y-4 pt-4">
-                <a href="#services" className="text-gray-700 hover:text-green-500 transition-colors font-medium">
-                  Services
-                </a>
-                <a href="#why-us" className="text-gray-700 hover:text-green-500 transition-colors font-medium">
-                  Pourquoi nous ?
-                </a>
-                <a href="#contact" className="text-gray-700 hover:text-green-500 transition-colors font-medium">
-                  Contact
-                </a>
-                <button 
-                  onClick={() => setShowDashboard(true)}
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-2xl font-medium transition-all duration-300 inline-flex items-center gap-2"
-                >
-                  <LayoutDashboard size={16} />
-                  Dashboard
-                </button>
-                <button 
-                  onClick={() => setIsModalOpen(true)}
-                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-2xl font-medium transition-all duration-300 w-full"
-                >
-                  Devis gratuit
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight mb-8">
-              Votre site web
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500">
-                professionnel
-              </span>
-              <br />
-              <span className="text-3xl md:text-4xl text-green-500">
-                en 2 semaines
-              </span>
+      <section className="pt-32 pb-24 px-6 relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className={`${isVisible ? 'animate-fade-in-up' : ''}`}>
+            <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight mb-8">
+              Créons ensemble votre
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500"> site web d'exception</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Création de sites web sur mesure pour entreprises. Design moderne, 
-              performance optimale et accompagnement personnalisé.
+            <p className="text-xl lg:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Votre site web est la première impression que vous donnez à vos clients. 
+              Nous créons des sites modernes, performants et convertisseurs pour faire grandir votre entreprise.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button 
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <Button 
                 onClick={() => setIsModalOpen(true)}
-                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all duration-300 hover:shadow-xl hover:scale-105 inline-flex items-center gap-3 shadow-lg"
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                Demander un devis gratuit
-                <ArrowRight size={20} />
-              </button>
+                Démarrer mon projet
+                <ArrowRight size={20} className="ml-2" />
+              </Button>
               
-              <button className="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors font-medium">
-                <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                  <Play size={16} />
-                </div>
+              <Button 
+                variant="outline"
+                className="border-2 border-gray-200 text-gray-700 hover:border-green-500 hover:text-green-500 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300"
+              >
+                <Play size={16} className="mr-2" />
                 Voir nos réalisations
-              </button>
+              </Button>
             </div>
             
-            <div className="mt-8 text-sm text-gray-500">
-              Réponse sous 24h • Sans engagement
+            <div className="flex items-center justify-center gap-8 text-sm text-gray-500">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="text-green-500" size={16} />
+                <span>Livraison en 2-3 semaines</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="text-green-500" size={16} />
+                <span>Support 7j/7</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="text-green-500" size={16} />
+                <span>Garantie satisfaction</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-6 bg-white">
+      <section id="services" className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Nos services
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Des solutions web complètes adaptées aux besoins de votre entreprise
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Des solutions web complètes et sur mesure pour répondre à tous vos besoins
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Site Vitrine */}
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Globe className="w-8 h-8 text-green-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">Site Vitrine</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Présentez votre entreprise avec un site web moderne et professionnel. 
-                Design sur mesure, responsive et optimisé pour la conversion.
-              </p>
-            </div>
-
-            {/* E-commerce */}
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <ShoppingCart className="w-8 h-8 text-blue-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">E-commerce</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Vendez en ligne avec une boutique performante. Gestion des produits, 
-                paiements sécurisés et expérience utilisateur optimale.
-              </p>
-            </div>
-
-            {/* Application Web */}
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Smartphone className="w-8 h-8 text-purple-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">Application Web</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Développement d'applications web sur mesure pour automatiser 
-                vos processus et améliorer votre productivité.
-              </p>
-            </div>
+            {[
+              {
+                icon: Monitor,
+                title: "Sites Vitrines",
+                description: "Sites web professionnels et modernes pour présenter votre entreprise et vos services de manière impactante.",
+                color: "from-green-500 to-green-600"
+              },
+              {
+                icon: ShoppingCart,
+                title: "E-commerce",
+                description: "Boutiques en ligne performantes avec gestion des stocks, paiements sécurisés et expérience client optimisée.",
+                color: "from-blue-500 to-blue-600"
+              },
+              {
+                icon: Rocket,
+                title: "Applications Web",
+                description: "Applications web personnalisées pour automatiser vos processus et améliorer votre productivité.",
+                color: "from-purple-500 to-purple-600"
+              }
+            ].map((service, index) => (
+              <Card key={index} className="p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0">
+                <CardHeader className="text-center pb-6">
+                  <div className={`w-20 h-20 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                    <service.icon className="text-white" size={32} />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-gray-900">{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 text-lg leading-relaxed text-center">{service.description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Why Us Section */}
-      <section id="why-us" className="py-20 px-6 bg-gray-50">
+      <section id="why-us" className="py-24 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Pourquoi nous choisir ?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Une expertise reconnue et un accompagnement personnalisé
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Notre expertise et notre approche client font la différence
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Zap className="w-10 h-10 text-green-500" />
+            {[
+              {
+                icon: Users,
+                title: "Équipe expérimentée",
+                description: "Plus de 8 ans d'expérience dans la création de sites web et le développement d'applications."
+              },
+              {
+                icon: Headphones,
+                title: "Support réactif",
+                description: "Une équipe dédiée à votre écoute 7j/7 pour répondre à toutes vos questions et demandes."
+              },
+              {
+                icon: Award,
+                title: "Qualité garantie",
+                description: "Nous nous engageons sur la qualité de nos livrables avec une garantie satisfaction."
+              }
+            ].map((advantage, index) => (
+              <div key={index} className="text-center">
+                <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <advantage.icon className="text-green-500" size={32} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{advantage.title}</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">{advantage.description}</p>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Rapide & Efficace</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Livraison en 2 semaines maximum. Processus optimisé et 
-                équipe expérimentée pour des résultats rapides.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-10 h-10 text-blue-500" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Notre processus
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Une méthodologie éprouvée pour des résultats garantis
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { number: "01", title: "Analyse", description: "Nous étudions vos besoins et objectifs" },
+              { number: "02", title: "Design", description: "Création de maquettes personnalisées" },
+              { number: "03", title: "Développement", description: "Intégration et développement technique" },
+              { number: "04", title: "Livraison", description: "Mise en ligne et formation" }
+            ].map((step, index) => (
+              <div key={index} className="text-center relative">
+                <div className="text-6xl font-bold text-gray-100 mb-4">{step.number}</div>
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <span className="text-white font-bold text-xl">{step.number}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-600">{step.description}</p>
+                
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-8 left-full w-8 h-0.5 bg-gray-200 transform -translate-y-1/2"></div>
+                )}
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Qualité Garantie</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Code propre, design moderne et performance optimale. 
-                Tests rigoureux et validation client à chaque étape.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Users className="w-10 h-10 text-purple-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Accompagnement</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Suivi personnalisé et formation à l'utilisation. 
-                Support technique et maintenance continue inclus.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-24 px-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold text-green-500 mb-4">150+</div>
-              <div className="text-xl font-semibold text-gray-900 mb-2">Projets réalisés</div>
-              <div className="text-gray-600">Sites web créés avec succès</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-blue-500 mb-4">98%</div>
-              <div className="text-xl font-semibold text-gray-900 mb-2">Clients satisfaits</div>
-              <div className="text-gray-600">Taux de satisfaction élevé</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-purple-500 mb-4">14j</div>
-              <div className="text-xl font-semibold text-gray-900 mb-2">Délai moyen</div>
-              <div className="text-gray-600">De la commande à la livraison</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-green-500 mb-4">24h</div>
-              <div className="text-xl font-semibold text-gray-900 mb-2">Support</div>
-              <div className="text-gray-600">Réponse garantie sous 24h</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-6 bg-gradient-to-r from-green-500 to-blue-500 text-white">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            Prêt à transformer votre présence web ?
-          </h2>
-          <p className="text-xl mb-12 opacity-90 max-w-3xl mx-auto">
-            Rejoignez nos clients satisfaits et donnez un coup de boost à votre business
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="bg-white text-green-600 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105 inline-flex items-center gap-3"
-            >
-              Demander un devis gratuit
-              <ArrowRight size={20} />
-            </button>
-            
-            <button 
-              onClick={scrollToForm}
-              className="border-2 border-white text-white px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white hover:text-green-600 transition-all duration-300"
-            >
-              Nous contacter
-            </button>
+            {[
+              { number: "150+", label: "Projets réalisés" },
+              { number: "98%", label: "Clients satisfaits" },
+              { number: "24h", label: "Temps de réponse" },
+              { number: "8+", label: "Années d'expérience" }
+            ].map((stat, index) => (
+              <div key={index} className="space-y-4">
+                <div className="text-5xl font-bold text-green-400">{stat.number}</div>
+                <div className="text-xl text-gray-300">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-gray-50">
+      <section id="contact" className="py-24 px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Parlons de votre projet
             </h2>
             <p className="text-xl text-gray-600">
-              Découvrez comment nous pouvons vous aider à atteindre vos objectifs
+              Recevez un devis personnalisé et gratuit en 24h
             </p>
           </div>
           
-          <div className="bg-white rounded-2xl p-12 shadow-xl">
-            <ContactForm />
-          </div>
+          <Card className="shadow-2xl rounded-2xl border-0">
+            <CardContent className="p-12">
+              <ContactForm />
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-16 px-6 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             <div className="md:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-2xl flex items-center justify-center">
-                  <Globe className="w-6 h-6 text-white" />
+              <div className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center">
+                  <Code className="text-white" size={16} />
                 </div>
-                <span className="text-2xl font-bold">WebAgency</span>
+                WebCraft Pro
               </div>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-md">
-                Créateur de sites web professionnels pour entreprises. 
-                Design moderne, performance optimale et accompagnement personnalisé.
+              <p className="text-gray-400 max-w-md">
+                Votre partenaire digital pour des sites web professionnels et performants.
               </p>
             </div>
             
             <div>
-              <h3 className="text-xl font-bold mb-6">Services</h3>
-              <ul className="space-y-4 text-gray-400">
-                <li><a href="#services" className="hover:text-white transition-colors">Sites vitrines</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">E-commerce</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Applications web</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Maintenance</a></li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <div className="space-y-3 text-gray-400">
+                <div className="flex items-center gap-2">
+                  <Phone size={16} />
+                  <span>+33 1 23 45 67 89</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail size={16} />
+                  <span>contact@webcraftpro.fr</span>
+                </div>
+              </div>
             </div>
             
             <div>
-              <h3 className="text-xl font-bold mb-6">Contact</h3>
-              <div className="space-y-4 text-gray-400">
-                <div className="flex items-center gap-3">
-                  <Phone size={18} />
-                  <span>+33 1 23 45 67 89</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Mail size={18} />
-                  <span>contact@webagency.fr</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin size={18} />
-                  <span>Paris, France</span>
-                </div>
-              </div>
+              <h3 className="text-lg font-semibold mb-4">Liens utiles</h3>
+              <ul className="space-y-3 text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors duration-300">Mentions légales</a></li>
+                <li><a href="#" className="hover:text-white transition-colors duration-300">Politique de confidentialité</a></li>
+                <li><a href="#" className="hover:text-white transition-colors duration-300">CGV</a></li>
+              </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 WebAgency. Tous droits réservés.</p>
+            <p>&copy; 2024 WebCraft Pro. Tous droits réservés.</p>
           </div>
         </div>
       </footer>
