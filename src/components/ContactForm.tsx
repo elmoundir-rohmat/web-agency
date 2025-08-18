@@ -25,19 +25,33 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit, buttonText = "Envoy
   });
 
   const [focusedField, setFocusedField] = useState<string>('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit?.(formData);
-    alert('Merci ! Nous vous recontactons sous 24h.');
-    setFormData({ name: '', company: '', email: '', phone: '', message: '' });
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    // Let Netlify handle the form submission completely
+    // Remove preventDefault to allow natural form submission
+    setIsSubmitting(true);
+    
+    // The form will submit to Netlify via action="/merci"
+    // We just need to show loading state and handle the redirect
+    setTimeout(() => {
+      if (onSubmit) {
+        onSubmit(formData);
+      }
+    }, 1000);
+  };
+
+  // Alternative: Let Netlify handle everything (uncomment if fetch method fails)
+  const handleNetlifySubmit = () => {
+    // This will let the form submit directly to Netlify
+    // Remove the onSubmit handler and let the form action="/merci" work
   };
 
   const inputClasses = (fieldName: string) => `
@@ -166,10 +180,20 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit, buttonText = "Envoy
       
       <Button
         type="submit"
-        className="w-full bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+        disabled={isSubmitting}
+        className="w-full bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
       >
-        <Send size={20} className="mr-2" />
-        {buttonText}
+        {isSubmitting ? (
+          <>
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+            Envoi en cours...
+          </>
+        ) : (
+          <>
+            <Send size={20} className="mr-2" />
+            {buttonText}
+          </>
+        )}
       </Button>
       
       <div className="text-center space-y-3">
