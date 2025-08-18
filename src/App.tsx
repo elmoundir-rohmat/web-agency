@@ -78,13 +78,12 @@ function App() {
         <div className="max-w-6xl mx-auto text-center">
           <div className={`${isVisible ? 'animate-fade-in-up' : ''}`}>
             <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight mb-8">
-              Créons ensemble votre
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500"> site web d'exception</span>
+              Votre site web 2x moins cher
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500"> En 2x moins de temps</span>
             </h1>
             
             <p className="text-xl lg:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Votre site web est la première impression que vous donnez à vos clients. 
-              Nous créons des sites modernes, performants et convertisseurs pour faire grandir votre entreprise.
+            Votre plus beau site pro en 2 semaines, financé à 100% via Qualiopi.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
@@ -108,7 +107,7 @@ function App() {
             <div className="flex items-center justify-center gap-8 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <CheckCircle className="text-green-500" size={16} />
-                <span>Livraison en 2-3 semaines</span>
+                <span>Livraison en 2 semaines</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="text-green-500" size={16} />
@@ -116,7 +115,7 @@ function App() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="text-green-500" size={16} />
-                <span>Garantie satisfaction</span>
+                <span>Ne payez que si vous êtes satisfait</span>
               </div>
             </div>
           </div>
@@ -222,14 +221,14 @@ function App() {
               Notre processus
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Une méthodologie éprouvée pour des résultats garantis
+              Une méthodologie itérative pour des résultats garantis
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               { number: "01", title: "Analyse", description: "Nous étudions vos besoins et objectifs" },
-              { number: "02", title: "Design", description: "Création de maquettes personnalisées" },
+              { number: "02", title: "Version de travail", description: "Valider une version de travail en 72h avec vous" },
               { number: "03", title: "Développement", description: "Intégration et développement technique" },
               { number: "04", title: "Livraison", description: "Mise en ligne et formation" }
             ].map((step, index) => (
