@@ -28,12 +28,14 @@ import {
 } from 'lucide-react';
 import Modal from './components/Modal';
 import ContactForm from './components/ContactForm';
+import ThankYouPage from './components/ThankYouPage';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -43,6 +45,16 @@ function App() {
     const formSection = document.getElementById('contact');
     formSection?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleFormSubmit = () => {
+    setShowThankYou(true);
+    setIsModalOpen(false);
+  };
+
+  // Show thank you page if form was submitted
+  if (showThankYou) {
+    return <ThankYouPage />;
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -282,7 +294,7 @@ function App() {
           
           <Card className="shadow-2xl rounded-2xl border-0">
             <CardContent className="p-12">
-              <ContactForm />
+              <ContactForm onSubmit={handleFormSubmit} />
             </CardContent>
           </Card>
         </div>
@@ -336,7 +348,7 @@ function App() {
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ContactForm onSubmit={() => setIsModalOpen(false)} />
+        <ContactForm onSubmit={handleFormSubmit} />
       </Modal>
     </div>
   );

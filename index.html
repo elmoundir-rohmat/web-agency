@@ -7,6 +7,15 @@
     <title>Landing Page Site Vitrine Qualiopi</title>
   </head>
   <body>
+    <!-- Netlify Forms - Hidden form for detection during build -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="company" />
+      <textarea name="message"></textarea>
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

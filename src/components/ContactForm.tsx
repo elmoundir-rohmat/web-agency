@@ -55,7 +55,23 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit, buttonText = "Envoy
   `;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form 
+      onSubmit={handleSubmit} 
+      className="space-y-8"
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/merci"
+    >
+      {/* Hidden form-name input for Netlify */}
+      <input type="hidden" name="form-name" value="contact" />
+      
+      {/* Honeypot anti-spam (invisible) */}
+      <p style={{display: 'none'}}>
+        <label>Ne pas remplir : <input name="bot-field" /></label>
+      </p>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="group">
           <label className={labelClasses('name')}>
